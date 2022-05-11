@@ -4,6 +4,7 @@ import com.toba.pool.core.utils.ScStringUtils;
 import com.toba.pool.core.utils.UUIDUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.pool2.impl.GenericObjectPool;
+import org.springframework.util.StopWatch;
 
 import java.time.LocalTime;
 import java.util.concurrent.Callable;
@@ -25,6 +26,8 @@ public class UuidValidatorCallable implements Callable<String> {
 
         //String checkTargetId = "06754b37-56fc-47bd-897f-10ca1ad1abe1";
 
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
         for (int ii = 0; ii < 10; ii++) {
             UUIDUtil util = null;
             try {
@@ -42,7 +45,8 @@ public class UuidValidatorCallable implements Callable<String> {
                 e.printStackTrace();
             }
         }
-        result += " "+ScStringUtils.getCurrentTimeOfLog()+" "+checkTargetStr;
+        stopWatch.stop();
+        result += " "+ScStringUtils.getCurrentTimeOfLog()+" "+stopWatch.getTotalTimeMillis()+" "+checkTargetStr;
         return result;
     }
 

@@ -38,7 +38,7 @@ public class UUIDVaildatorPoolCallableTest {
 		List<Callable<String>> valStatusJobs = new ArrayList<>();
 
 		String checkTargetId2 = "06754b37-56fc-47bd-897f-10ca1ad1";
-		for (int ii = 0; ii < 1000; ii++) {
+		for (int ii = 0; ii < 3000; ii++) {
 			String temp = StringUtils.leftPad(Integer.toString(ii), 4, "0");
 			String checkTargetId3 = checkTargetId2 + temp;
 			UuidValidatorCallable callable = new UuidValidatorCallable(uuidValidatorPool, checkTargetId3);
