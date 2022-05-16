@@ -28,25 +28,25 @@ public class UuidValidatorCallable implements Callable<String> {
 
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
-        for (int ii = 0; ii < 10; ii++) {
-            UUIDUtil util = null;
-            try {
+        UUIDUtil util = null;
+        String utilId = "";
+        try {
 
-                String startTime = ScStringUtils.getCurrentTimeOfLog();
-                util = uuidValidatorPool.borrowObject();
-                task2(util, checkTargetStr);
-                uuidValidatorPool.returnObject(util);
+            String startTime = ScStringUtils.getCurrentTimeOfLog();
+            util = uuidValidatorPool.borrowObject();
+            utilId = util.getMyId();
+            task2(util, checkTargetStr);
+            uuidValidatorPool.returnObject(util);
 
-                String endTime = ScStringUtils.getCurrentTimeOfLog();
+            String endTime = ScStringUtils.getCurrentTimeOfLog();
 
 //                log.info("startTime: " + startTime);
 //                log.info("endTime: " + endTime);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         stopWatch.stop();
-        result += " "+ScStringUtils.getCurrentTimeOfLog()+" "+stopWatch.getTotalTimeMillis()+" "+checkTargetStr;
+        result += " "+ScStringUtils.getCurrentTimeOfLog()+" "+stopWatch.getTotalTimeMillis()+" "+checkTargetStr+" UtilId: "+utilId;
         return result;
     }
 

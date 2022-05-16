@@ -20,7 +20,7 @@ public class UUIDVaildatorPoolCallableTest {
 		int maxTotal = 3;
 		String startTime = ScStringUtils.getCurrentTimeOfLog();
 		GenericObjectPoolConfig config = new GenericObjectPoolConfig();
-		config.setMaxTotal(1);
+		config.setMaxTotal(5);
 		//config.setMaxWaitMillis(50);
 		GenericObjectPool<UUIDUtil> uuidValidatorPool = new GenericObjectPool<UUIDUtil>(new UUIDVaildatorPool(), config);
 
@@ -39,7 +39,7 @@ public class UUIDVaildatorPoolCallableTest {
 		List<Callable<String>> valStatusJobs = new ArrayList<>();
 
 		String checkTargetId2 = "06754b37-56fc-47bd-897f-10ca1ad1";
-		for (int ii = 0; ii < 300; ii++) {
+		for (int ii = 0; ii < 1300; ii++) {
 			String temp = StringUtils.leftPad(Integer.toString(ii), 4, "0");
 			String checkTargetId3 = checkTargetId2 + temp;
 			UuidValidatorCallable callable = new UuidValidatorCallable(uuidValidatorPool, checkTargetId3);
