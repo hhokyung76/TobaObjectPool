@@ -35,6 +35,7 @@ dependencies {
 
 	implementation 'org.infobip.lib:popout:2.1.0'
 	implementation 'com.leansoft:bigqueue:0.7.0'
+	implementation 'net.openhft:chronicle-queue:5.23ea7'
 
 }
 

@@ -1,4 +1,4 @@
-package com.toba.pool.test.popout;
+package com.toba.pool.test.bigqueue;
 
 import org.infobip.lib.popout.Deserializer;
 import org.infobip.lib.popout.FileQueue;
