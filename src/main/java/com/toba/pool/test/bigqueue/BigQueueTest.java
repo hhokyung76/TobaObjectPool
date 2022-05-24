@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 
 @Slf4j
 public class BigQueueTest {
-    public static void main(String[] args) throws IOException {
+    public static void main2(String[] args) throws IOException {
         ExecutorService executor = Executors.newFixedThreadPool(8);
 
         String queueDir = "/Users/hklee/popout"; //System.getProperty("user.home");
@@ -23,15 +23,25 @@ public class BigQueueTest {
 //        executor.submit(deQueueing2);
 
         try {
-            insertQueueForThread(bigQueue);
+            //insertQueueForThread(bigQueue);
             //insertQueue();
-            //readQueue();
+            readQueue();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
+    public static void main(String[] args) throws IOException {
+
+        try {
+            //insertQueueForThread(bigQueue);
+            insertQueue();
+            readQueue();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public static void insertQueueForThread(IBigQueue bigQueue) throws IOException {
 
         for (int i = 1; i <= 100000; i++) {
@@ -57,9 +67,14 @@ public class BigQueueTest {
         String queueName = "baeldung-queue";
         IBigQueue bigQueue = new BigQueueImpl(queueDir, queueName);
 
+        System.out.println("bigQueue.size: "+bigQueue.size());
+
+//        long index = 0;
         while(bigQueue.size() > 0) {
             String record = new String(bigQueue.dequeue());
-            System.out.println("queueSize: "+bigQueue.size()+" = record: "+record);
+
+            if ((bigQueue.size() % 1000) == 0)
+                System.out.println("queueSize: "+bigQueue.size()+" = record: "+record);
         }
     }
 }

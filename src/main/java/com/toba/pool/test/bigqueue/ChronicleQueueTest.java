@@ -5,22 +5,21 @@ import net.openhft.chronicle.queue.ExcerptAppender;
 import net.openhft.chronicle.queue.ExcerptTailer;
 import net.openhft.chronicle.wire.DocumentContext;
 
-import java.util.concurrent.ThreadLocalRandom;
 
 public class ChronicleQueueTest {
     public static void main(String[] args) {
-        //writingQueue(null);
-        readingQueue(null);
+        //writingQueue();
+        readingQueue();
     }
 
-    public static void writingQueue(String[] args) {
+    public static void writingQueue() {
 
         final MarketData marketData = new MarketData();
 
-        final ChronicleQueue q = ChronicleQueue.single("market-data");
+        final ChronicleQueue q = ChronicleQueue.single("market-data3");
         final ExcerptAppender appender = q.acquireAppender();
 
-        for (long i = 0; i < 1000; i++) {
+        for (long i = 0; i < 1000000; i++) {
             try (final DocumentContext document =
                          appender.acquireWritingDocument(false)) {
                 document
@@ -33,9 +32,9 @@ public class ChronicleQueueTest {
     }
 
 
-    public static void readingQueue(String[] args) {
+    public static void readingQueue() {
 
-        final ChronicleQueue q = ChronicleQueue.single("market-data");
+        final ChronicleQueue q = ChronicleQueue.single("market-data3");
         final ExcerptTailer tailer = q.createTailer();
 
         for (long i = 0; i < 1000000; i++) {
