@@ -21,16 +21,31 @@ public class BigDeQueueingRunnable implements Runnable {
 
     @Override
     public void run() {
-        log.info("started... dequeueing bigqueue");
+        System.out.println("Dequeue## started... dequeueing bigqueue");
+        int index = 0;
         while(true) {
+            if (bigQueue.size() == 0) {
+                try {
+                    Thread.sleep(2000);
+                    System.out.println("Dequeue## bigQueue is empty..."+bigQueue.size());
+                    bigQueue.flush();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                continue;
+            }
             String record = null;
             try {
-                log.info("## bigqueue.size: "+bigQueue.size());
+                //System.out.println("Dequeue## bigqueue.size: "+bigQueue.size());
                 record = new String(bigQueue.dequeue());
+                index++;
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            log.info("queueSize: "+bigQueue.size()+" = record: "+record);
+
+            if ((index % 1000) == 0) {
+                System.out.println("Dequeue## queueSize: " + bigQueue.size() + " = record: " + record);
+            }
         }
     }
 }
